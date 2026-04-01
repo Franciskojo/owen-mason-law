@@ -105,7 +105,7 @@ const style = `
   }
   .hero-content {
     position: relative; z-index: 2;
-    padding: 0 5%;
+    padding: 0 5% 160px;
     max-width: 720px;
     animation: fadeUp 1s ease both;
   }
@@ -113,6 +113,18 @@ const style = `
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
   }
+  @keyframes revealUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
   .hero-eyebrow {
     display: flex; align-items: center; gap: 1rem;
     margin-bottom: 2rem;
@@ -220,14 +232,11 @@ const style = `
   }
   .about-img-inner {
     position: absolute; inset: 0;
-    background: linear-gradient(160deg, #1a3050 0%, #0b1a2e 100%);
+    background: url('/images/about.png') center/cover no-repeat;
     display: flex; align-items: center; justify-content: center;
   }
   .about-initials {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 8rem; font-weight: 300;
-    color: rgba(184,149,90,0.15);
-    letter-spacing: -0.02em;
+    display: none;
   }
   .about-badge {
     position: absolute; bottom: -1.5rem; right: -1.5rem;
@@ -259,9 +268,10 @@ const style = `
     display: flex; align-items: flex-start; gap: 0.8rem;
   }
   .value-icon {
-    width: 36px; height: 36px; flex-shrink: 0;
-    background: var(--cream); display: flex; align-items: center; justify-content: center;
-    color: var(--gold); font-size: 1rem;
+    width: 38px; height: 38px; flex-shrink: 0;
+    background: var(--cream-dark); border: 1px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold); font-size: 0.9rem;
   }
   .value-item h4 {
     font-size: 0.85rem; font-weight: 600;
@@ -311,7 +321,8 @@ const style = `
     margin-bottom: 1rem;
   }
   .practice-icon {
-    font-size: 1.8rem; margin-bottom: 1rem; display: block;
+    font-size: 2.2rem; margin-bottom: 1.5rem; display: block;
+    color: var(--gold); opacity: 0.85;
   }
   .practice-card h3 {
     font-family: 'Cormorant Garamond', serif;
@@ -349,9 +360,7 @@ const style = `
     display: flex; align-items: center; justify-content: center;
   }
   .attorney-initials-bg {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 5rem; font-weight: 300;
-    color: rgba(184,149,90,0.25);
+    display: none;
   }
   .attorney-overlay {
     position: absolute; inset: 0;
@@ -425,7 +434,7 @@ const style = `
     display: block; margin-bottom: 0.15rem;
   }
   .author-case { font-size: 0.72rem; color: var(--gold); letter-spacing: 0.1em; }
-  .stars { color: var(--gold); font-size: 0.75rem; margin-bottom: 0.5rem; }
+  .stars { color: #f5c942; font-size: 0.9rem; margin-bottom: 0.5rem; letter-spacing: 0.1em; }
 
   /* CONTACT */
   .contact { background: var(--cream-dark); }
@@ -459,14 +468,15 @@ const style = `
   }
   .form-group input, .form-group select, .form-group textarea {
     width: 100%; padding: 0.85rem 1rem;
-    border: 1px solid #ddd; background: var(--cream);
+    border: 1.5px solid #c8c0b0; background: var(--cream);
     font-family: 'Jost', sans-serif; font-size: 0.9rem; color: var(--text);
-    outline: none; transition: border-color 0.3s;
+    outline: none; transition: border-color 0.3s, background 0.3s;
     resize: none;
   }
   .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
     border-color: var(--gold);
     background: white;
+    box-shadow: 0 0 0 3px rgba(184,149,90,0.08);
   }
   .form-submit {
     width: 100%; padding: 1.1rem;
@@ -474,9 +484,49 @@ const style = `
     border: none; cursor: pointer;
     font-family: 'Jost', sans-serif; font-size: 0.8rem; font-weight: 600;
     letter-spacing: 0.2em; text-transform: uppercase;
-    transition: background 0.3s;
+    transition: background 0.3s, transform 0.2s;
   }
-  .form-submit:hover { background: var(--gold); color: var(--navy); }
+  .form-submit:hover { background: var(--gold); color: var(--navy); transform: translateY(-1px); }
+
+  /* BACK TO TOP */
+  .back-to-top {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 90;
+    width: 46px; height: 46px;
+    background: var(--gold); color: var(--navy);
+    border: none; cursor: pointer; font-size: 1.2rem;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.3s, transform 0.3s, background 0.3s;
+    pointer-events: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  }
+  .back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
+  .back-to-top:hover { background: var(--gold-light); }
+
+  /* FLOATING CTA */
+  .floating-cta {
+    position: fixed; bottom: 2rem; left: 2rem; z-index: 90;
+    display: flex; align-items: center; gap: 0.6rem;
+    background: var(--navy); color: var(--white);
+    padding: 0.75rem 1.25rem;
+    border: 1px solid rgba(184,149,90,0.3);
+    cursor: pointer; font-family: 'Jost', sans-serif;
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .floating-cta:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+  .floating-cta-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #4caf50; flex-shrink: 0;
+    box-shadow: 0 0 0 3px rgba(76,175,80,0.2);
+    animation: pulse-dot 2s infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(76,175,80,0.2); }
+    50% { box-shadow: 0 0 0 6px rgba(76,175,80,0.1); }
+  }
 
   /* FOOTER */
   footer {
@@ -490,6 +540,18 @@ const style = `
     margin-bottom: 3rem;
   }
   .footer-brand p { font-size: 0.82rem; line-height: 1.8; margin-top: 1rem; max-width: 280px; }
+  .footer-social {
+    display: flex; gap: 0.75rem; margin-top: 1.5rem;
+  }
+  .social-btn {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.5); font-size: 0.85rem;
+    cursor: pointer; text-decoration: none;
+    transition: border-color 0.3s, color 0.3s, background 0.3s;
+  }
+  .social-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(184,149,90,0.08); }
   .footer-col h4 {
     font-size: 0.7rem; font-weight: 600;
     letter-spacing: 0.25em; text-transform: uppercase;
@@ -532,9 +594,11 @@ const style = `
     .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
     .hero-stats { flex-wrap: wrap; }
     .stat { flex: 1 1 50%; }
+    .hero-content { padding-bottom: 220px; }
     .practice-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
     .nav-links, .nav-cta { display: none; }
     .hamburger { display: flex; }
+    .floating-cta { display: none; }
   }
   @media (max-width: 600px) {
     .practice-grid { grid-template-columns: 1fr; }
@@ -543,22 +607,24 @@ const style = `
     .footer-inner { grid-template-columns: 1fr; }
     .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
     .footer-disclaimer { text-align: center; }
+    .hero-content { padding-bottom: 260px; }
+    .back-to-top { bottom: 1rem; right: 1rem; }
   }
 `;
 
 const practiceAreas = [
-  { icon: "⚖️", title: "Corporate Law", desc: "Comprehensive legal counsel for businesses at every stage — from incorporation and governance to M&A and regulatory compliance." },
-  { icon: "🏛️", title: "Litigation & Dispute Resolution", desc: "Aggressive representation in complex commercial disputes, arbitration, and appellate proceedings across all jurisdictions." },
-  { icon: "🏠", title: "Real Estate Law", desc: "Full-service real estate legal support including transactions, development, financing, zoning, and title matters." },
-  { icon: "📋", title: "Estate Planning & Probate", desc: "Protecting your legacy through wills, trusts, powers of attorney, and expert administration of estates." },
-  { icon: "💼", title: "Employment Law", desc: "Advising employers and employees on contracts, discrimination, wrongful termination, and workplace compliance." },
-  { icon: "🔒", title: "Intellectual Property", desc: "Safeguarding your innovations with patents, trademarks, copyrights, and trade secret protection strategies." },
+  { icon: "🏛️", title: "Corporate Law", desc: "Comprehensive legal counsel for businesses at every stage — from incorporation and governance to M&A and regulatory compliance." },
+  { icon: "⚖️", title: "Litigation & Dispute Resolution", desc: "Aggressive representation in complex commercial disputes, arbitration, and appellate proceedings across all jurisdictions." },
+  { icon: "📜", title: "Real Estate Law", desc: "Full-service real estate legal support including transactions, development, financing, zoning, and title matters." },
+  { icon: "🖋️", title: "Estate Planning & Probate", desc: "Protecting your legacy through wills, trusts, powers of attorney, and expert administration of estates." },
+  { icon: "🏢", title: "Employment Law", desc: "Advising employers and employees on contracts, discrimination, wrongful termination, and workplace compliance." },
+  { icon: "🛡️", title: "Intellectual Property", desc: "Safeguarding your innovations with patents, trademarks, copyrights, and trade secret protection strategies." },
 ];
 
 const attorneys = [
-  { name: "Owen Mason", title: "Founding Partner", initials: "OM", desc: "With over 25 years of distinguished practice, Owen Mason brings unparalleled expertise in corporate and commercial law.", specialties: ["Corporate", "M&A", "Litigation"] },
-  { name: "Victoria Clarke", title: "Senior Partner", initials: "VC", desc: "Victoria is a seasoned litigator recognized for her strategic acumen and commanding presence in the courtroom.", specialties: ["Litigation", "Employment"] },
-  { name: "James Adewale", title: "Partner", initials: "JA", desc: "James brings specialized expertise in real estate and infrastructure transactions across West Africa and beyond.", specialties: ["Real Estate", "Finance"] },
+  { name: "Owen Mason", title: "Founding Partner", image: "/images/owen.png", initials: "OM", desc: "With over 25 years of distinguished practice, Owen Mason brings unparalleled expertise in corporate and commercial law.", specialties: ["Corporate", "M&A", "Litigation"] },
+  { name: "Victoria Clarke", title: "Senior Partner", image: "/images/victoria.png", initials: "VC", desc: "Victoria is a seasoned litigator recognized for her strategic acumen and commanding presence in the courtroom.", specialties: ["Litigation", "Employment"] },
+  { name: "James Adewale", title: "Partner", image: "/images/james.png", initials: "JA", desc: "James brings specialized expertise in real estate and infrastructure transactions across West Africa and beyond.", specialties: ["Real Estate", "Finance"] },
 ];
 
 const testimonials = [
@@ -571,12 +637,27 @@ export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [toast, setToast] = useState(false);
+  const [backToTop, setBackToTop] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", phone: "", area: "", message: "" });
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+      setBackToTop(window.scrollY > 400);
+    };
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Scroll-reveal via IntersectionObserver
+  useEffect(() => {
+    const els = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); observer.unobserve(e.target); } }),
+      { threshold: 0.12 }
+    );
+    els.forEach(el => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   const scrollTo = (id) => {
@@ -615,6 +696,7 @@ export default function App() {
       {/* Mobile Menu */}
       {menuOpen && (
         <div style={{ position: "fixed", inset: 0, background: "var(--navy)", zIndex: 99, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "2.5rem" }}>
+          <button onClick={() => setMenuOpen(false)} style={{ position: "absolute", top: "1.5rem", right: "1.5rem", background: "none", border: "none", color: "rgba(255,255,255,0.7)", fontSize: "1.8rem", cursor: "pointer", lineHeight: 1 }}>✕</button>
           {["about", "practice", "attorneys", "testimonials", "contact"].map(s => (
             <a key={s} href={`#${s}`} onClick={e => { e.preventDefault(); scrollTo(s); }} style={{ color: "white", textDecoration: "none", fontFamily: "'Cormorant Garamond', serif", fontSize: "2.5rem", fontWeight: 300 }}>
               {s.charAt(0).toUpperCase() + s.slice(1)}
@@ -651,7 +733,7 @@ export default function App() {
       {/* ABOUT */}
       <section className="about" id="about">
         <div className="about-inner">
-          <div className="about-visual">
+          <div className="about-visual reveal">
             <div className="about-img-frame">
               <div className="about-img-inner">
                 <span className="about-initials">OM</span>
@@ -663,18 +745,18 @@ export default function App() {
             </div>
           </div>
           <div className="about-text">
-            <div className="section-eyebrow"><span>About the Firm</span></div>
-            <h2 className="section-title" style={{ marginBottom: "1.5rem" }}>A Legacy of Legal Excellence</h2>
-            <p>Founded in 1999, Owen Mason Law Firm has grown into one of the region's most respected legal practices. We combine the responsiveness of a boutique firm with the resources and depth of a large institution.</p>
-            <p>Our attorneys are not just legal technicians — they are trusted advisors who understand the full context of your challenges. We take pride in delivering clear, practical advice and achieving results that matter.</p>
+            <div className="section-eyebrow reveal"><span>About the Firm</span></div>
+            <h2 className="section-title reveal" style={{ marginBottom: "1.5rem" }}>A Legacy of Legal Excellence</h2>
+            <p className="reveal reveal-delay-1">Founded in 1999, Owen Mason Law Firm has grown into one of the region's most respected legal practices. We combine the responsiveness of a boutique firm with the resources and depth of a large institution.</p>
+            <p className="reveal reveal-delay-2">Our attorneys are not just legal technicians — they are trusted advisors who understand the full context of your challenges. We take pride in delivering clear, practical advice and achieving results that matter.</p>
             <div className="about-values">
               {[
-                { icon: "⚖️", title: "Integrity", desc: "Uncompromising ethical standards" },
+                { icon: "🔒", title: "Integrity", desc: "Uncompromising ethical standards" },
                 { icon: "🎯", title: "Precision", desc: "Meticulous attention to every detail" },
                 { icon: "🤝", title: "Dedication", desc: "Committed to your success" },
-                { icon: "🌍", title: "Reach", desc: "Local expertise, global perspective" },
-              ].map(v => (
-                <div className="value-item" key={v.title}>
+                { icon: "🌐", title: "Reach", desc: "Local expertise, global perspective" },
+              ].map((v, i) => (
+                <div className={`value-item reveal reveal-delay-${i + 1}`} key={v.title}>
                   <div className="value-icon">{v.icon}</div>
                   <div><h4>{v.title}</h4><p>{v.desc}</p></div>
                 </div>
@@ -686,7 +768,7 @@ export default function App() {
 
       {/* PRACTICE AREAS */}
       <section className="practice" id="practice">
-        <div className="practice-header">
+        <div className="practice-header reveal">
           <div>
             <div className="section-eyebrow"><span>What We Do</span></div>
             <h2 className="section-title light">Our Practice Areas</h2>
@@ -695,7 +777,7 @@ export default function App() {
         </div>
         <div className="practice-grid">
           {practiceAreas.map((p, i) => (
-            <div className="practice-card" key={p.title}>
+            <div className="practice-card reveal reveal-delay-1" key={p.title}>
               <div className="practice-num">0{i + 1}</div>
               <span className="practice-icon">{p.icon}</span>
               <h3>{p.title}</h3>
@@ -709,15 +791,14 @@ export default function App() {
       {/* ATTORNEYS */}
       <section className="attorneys" id="attorneys">
         <div className="attorneys-inner">
-          <div className="attorneys-header">
+          <div className="attorneys-header reveal">
             <div className="section-eyebrow"><span>Our Team</span></div>
             <h2 className="section-title">Meet Our Attorneys</h2>
           </div>
           <div className="attorneys-grid">
-            {attorneys.map(a => (
-              <div className="attorney-card" key={a.name}>
-                <div className="attorney-photo">
-                  <span className="attorney-initials-bg">{a.initials}</span>
+            {attorneys.map((a, i) => (
+              <div className={`attorney-card reveal reveal-delay-${i + 1}`} key={a.name}>
+                <div className="attorney-photo" style={{ background: `url(${a.image}) center/cover no-repeat` }}>
                   <div className="attorney-overlay" />
                 </div>
                 <div className="attorney-info">
@@ -737,13 +818,13 @@ export default function App() {
       {/* TESTIMONIALS */}
       <section className="testimonials" id="testimonials">
         <div className="testimonials-inner">
-          <div className="testimonials-header">
+          <div className="testimonials-header reveal">
             <div className="section-eyebrow"><span>Client Voices</span></div>
             <h2 className="section-title light">What Our Clients Say</h2>
           </div>
           <div className="testimonials-grid">
-            {testimonials.map(t => (
-              <div className="testimonial-card" key={t.name}>
+            {testimonials.map((t, i) => (
+              <div className={`testimonial-card reveal reveal-delay-${i + 1}`} key={t.name}>
                 <span className="stars">★★★★★</span>
                 <span className="quote-mark">"</span>
                 <p>{t.text}</p>
@@ -763,7 +844,7 @@ export default function App() {
       {/* CONTACT */}
       <section className="contact" id="contact">
         <div className="contact-inner">
-          <div className="contact-info">
+          <div className="contact-info reveal">
             <div className="section-eyebrow"><span>Get in Touch</span></div>
             <h2 className="section-title" style={{ marginBottom: "1.5rem" }}>Schedule Your Free Consultation</h2>
             <p>Your first consultation is complimentary. Tell us about your legal matter and one of our experienced attorneys will respond within 24 hours.</p>
@@ -773,33 +854,33 @@ export default function App() {
                 { icon: "📞", label: "Phone", val: "+233 30 276 0000" },
                 { icon: "📧", label: "Email", val: "info@owenmasonlaw.com" },
                 { icon: "🕐", label: "Office Hours", val: "Monday – Friday: 8am – 6pm" },
-              ].map(c => (
-                <div className="contact-item" key={c.label}>
+              ].map((c, i) => (
+                <div className={`contact-item reveal reveal-delay-${i + 1}`} key={c.label}>
                   <div className="contact-ico">{c.icon}</div>
                   <div><h4>{c.label}</h4><p>{c.val}</p></div>
                 </div>
               ))}
             </div>
           </div>
-          <div className="contact-form">
+          <div className="contact-form reveal">
             <h3>Send Us a Message</h3>
             <form onSubmit={handleSubmit}>
               <div className="form-row">
-                <div className="form-group">
+                <div className="form-group reveal reveal-delay-1">
                   <label>Full Name</label>
                   <input type="text" placeholder="John Doe" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required />
                 </div>
-                <div className="form-group">
+                <div className="form-group reveal reveal-delay-1">
                   <label>Email Address</label>
                   <input type="email" placeholder="john@example.com" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required />
                 </div>
               </div>
               <div className="form-row">
-                <div className="form-group">
+                <div className="form-group reveal reveal-delay-2">
                   <label>Phone Number</label>
                   <input type="tel" placeholder="+233 XX XXX XXXX" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} />
                 </div>
-                <div className="form-group">
+                <div className="form-group reveal reveal-delay-2">
                   <label>Practice Area</label>
                   <select value={form.area} onChange={e => setForm({ ...form, area: e.target.value })} required>
                     <option value="">Select area...</option>
@@ -808,15 +889,24 @@ export default function App() {
                   </select>
                 </div>
               </div>
-              <div className="form-group">
+              <div className="form-group reveal reveal-delay-3">
                 <label>Brief Description of Your Matter</label>
                 <textarea rows={5} placeholder="Please describe your legal matter briefly..." value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} required />
               </div>
-              <button type="submit" className="form-submit">Request Free Consultation →</button>
+              <button type="submit" className="form-submit reveal reveal-delay-3">Request Free Consultation →</button>
             </form>
           </div>
         </div>
       </section>
+
+      {/* FLOATING CTA */}
+      <button className="floating-cta" onClick={() => scrollTo("contact")}>
+        <span className="floating-cta-dot" />
+        Book Free Consultation
+      </button>
+
+      {/* BACK TO TOP */}
+      <button className={`back-to-top ${backToTop ? "visible" : ""}`} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Back to top">↑</button>
 
       {/* FOOTER */}
       <footer>
@@ -824,6 +914,9 @@ export default function App() {
           <div className="footer-brand">
             <div className="nav-logo" style={{ cursor: "default" }}>Owen Mason<span>Law Firm</span></div>
             <p>Delivering exceptional legal services with integrity, precision, and a relentless commitment to our clients' best interests since 1999.</p>
+            <div className="footer-social">
+              {["in", "f", "𝕏"].map(s => <a key={s} href="#" className="social-btn" onClick={e => e.preventDefault()}>{s}</a>)}
+            </div>
           </div>
           <div className="footer-col">
             <h4>Practice Areas</h4>
