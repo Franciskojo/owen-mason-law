@@ -528,6 +528,21 @@ const style = `
     50% { box-shadow: 0 0 0 6px rgba(76,175,80,0.1); }
   }
 
+  .footer-link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.social-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
   /* FOOTER */
   footer {
     background: #060f1d;
