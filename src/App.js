@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, } from "react";
 
 const style = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
@@ -909,37 +909,88 @@ export default function App() {
       <button className={`back-to-top ${backToTop ? "visible" : ""}`} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Back to top">↑</button>
 
       {/* FOOTER */}
-      <footer>
-        <div className="footer-inner">
-          <div className="footer-brand">
-            <div className="nav-logo" style={{ cursor: "default" }}>Owen Mason<span>Law Firm</span></div>
-            <p>Delivering exceptional legal services with integrity, precision, and a relentless commitment to our clients' best interests since 1999.</p>
-            <div className="footer-social">
-              {["in", "f", "𝕏"].map(s => <a key={s} href="#" className="social-btn" onClick={e => e.preventDefault()}>{s}</a>)}
-            </div>
-          </div>
-          <div className="footer-col">
-            <h4>Practice Areas</h4>
-            <ul>{practiceAreas.map(p => <li key={p.title}><a href="#practice" onClick={e => { e.preventDefault(); scrollTo("practice"); }}>{p.title}</a></li>)}</ul>
-          </div>
-          <div className="footer-col">
-            <h4>The Firm</h4>
-            <ul>
-              {["About Us", "Our Attorneys", "Testimonials", "News & Insights", "Careers"].map(l => <li key={l}><a href="#">{l}</a></li>)}
-            </ul>
-          </div>
-          <div className="footer-col">
-            <h4>Client Resources</h4>
-            <ul>
-              {["Free Consultation", "Client Portal", "Legal Resources", "Privacy Policy", "Terms of Service"].map(l => <li key={l}><a href="#">{l}</a></li>)}
-            </ul>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} Owen Mason Law Firm. All rights reserved.</p>
-          <p className="footer-disclaimer">The information on this website is for general informational purposes only and does not constitute legal advice. No attorney-client relationship is formed by use of this site.</p>
-        </div>
-      </footer>
+<footer>
+  <div className="footer-inner">
+    <div className="footer-brand">
+      <div className="nav-logo" style={{ cursor: "default" }}>
+        Owen Mason<span>Law Firm</span>
+      </div>
+      <p>
+        Delivering exceptional legal services with integrity, precision, and a
+        relentless commitment to our clients' best interests since 1999.
+      </p>
+
+      <div className="footer-social">
+        {["in", "f", "𝕏"].map((s) => (
+          <button
+            key={s}
+            className="social-btn"
+            onClick={() => console.log(`${s} clicked`)}
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <div className="footer-col">
+      <h4>Practice Areas</h4>
+      <ul>
+        {practiceAreas.map((p) => (
+          <li key={p.title}>
+            <button
+              className="footer-link"
+              onClick={() => scrollTo("practice")}
+            >
+              {p.title}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div className="footer-col">
+      <h4>The Firm</h4>
+      <ul>
+        {["About Us", "Our Attorneys", "Testimonials", "News & Insights", "Careers"].map(
+          (l) => (
+            <li key={l}>
+              <button className="footer-link">{l}</button>
+            </li>
+          )
+        )}
+      </ul>
+    </div>
+
+    <div className="footer-col">
+      <h4>Client Resources</h4>
+      <ul>
+        {[
+          "Free Consultation",
+          "Client Portal",
+          "Legal Resources",
+          "Privacy Policy",
+          "Terms of Service",
+        ].map((l) => (
+          <li key={l}>
+            <button className="footer-link">{l}</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <div className="footer-bottom">
+    <p>
+      © {new Date().getFullYear()} Owen Mason Law Firm. All rights reserved.
+    </p>
+    <p className="footer-disclaimer">
+      The information on this website is for general informational purposes only
+      and does not constitute legal advice. No attorney-client relationship is
+      formed by use of this site.
+    </p>
+  </div>
+</footer>
 
       {/* TOAST */}
       <div className={`toast ${toast ? "show" : ""}`}>
