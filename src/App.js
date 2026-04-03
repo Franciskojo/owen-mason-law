@@ -643,9 +643,9 @@ const attorneys = [
 ];
 
 const testimonials = [
-  { text: "Owen Mason Law Firm handled our company's acquisition with exceptional professionalism. Their attention to detail and strategic guidance was invaluable throughout the entire process.", name: "Richard Owusu", caseType: "Corporate Acquisition", initials: "RO" },
-  { text: "I was impressed by the firm's dedication and thoroughness. They navigated a highly complex estate matter with sensitivity and expertise I have rarely encountered.", name: "Abena Mensah", caseType: "Estate Planning", initials: "AM" },
-  { text: "The litigation team delivered beyond our expectations, securing a decisive outcome in what was considered a challenging dispute. Truly outstanding representation.", name: "Kwame Asante", caseType: "Commercial Dispute", initials: "KA" },
+  { text: "Owen Mason Law Firm handled our company's acquisition with exceptional professionalism. Their attention to detail and strategic guidance was invaluable throughout the entire process.", name: "Richard Brooks", caseType: "Corporate Acquisition", initials: "RB" },
+  { text: "I was impressed by the firm's dedication and thoroughness. They navigated a highly complex estate matter with sensitivity and expertise I have rarely encountered.", name: "Eleanor Wright", caseType: "Estate Planning", initials: "EW" },
+  { text: "The litigation team delivered beyond our expectations, securing a decisive outcome in what was considered a challenging dispute. Truly outstanding representation.", name: "Matthew Harrison", caseType: "Commercial Dispute", initials: "MH" },
 ];
 
 export default function App() {
@@ -691,321 +691,327 @@ export default function App() {
     <>
       <style>{style}</style>
 
-      {/* NAV */}
-      <nav className={`nav ${scrolled ? "scrolled" : ""}`}>
-        <div className="nav-logo" onClick={() => scrollTo("hero")}>
-          Owen Mason
-          <span>Law Firm</span>
-        </div>
-        <ul className="nav-links">
-          {["about", "practice", "attorneys", "testimonials", "contact"].map(s => (
-            <li key={s}><a href={`#${s}`} onClick={e => { e.preventDefault(); scrollTo(s); }}>{s.charAt(0).toUpperCase() + s.slice(1)}</a></li>
-          ))}
-        </ul>
-        <button className="nav-cta" onClick={() => scrollTo("contact")}>Free Consultation</button>
-        <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
-          <span /><span /><span />
-        </button>
-      </nav>
+      {/* HEADER & NAV */}
+      <header>
+        <nav className={`nav ${scrolled ? "scrolled" : ""}`}>
+          <div className="nav-logo" id="logo-main" onClick={() => scrollTo("hero")}>
+            Owen Mason
+            <span>Law Firm</span>
+          </div>
+          <ul className="nav-links">
+            {["about", "practice", "attorneys", "testimonials", "contact"].map(s => (
+              <li key={s}><a href={`#${s}`} onClick={e => { e.preventDefault(); scrollTo(s); }}>{s.charAt(0).toUpperCase() + s.slice(1)}</a></li>
+            ))}
+          </ul>
+          <button className="nav-cta" id="btn-nav-consultation" onClick={() => scrollTo("contact")}>Free Consultation</button>
+          <button className="hamburger" id="btn-nav-hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
+            <span /><span /><span />
+          </button>
+        </nav>
+      </header>
 
       {/* Mobile Menu */}
       {menuOpen && (
         <div style={{ position: "fixed", inset: 0, background: "var(--navy)", zIndex: 99, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "2.5rem" }}>
-          <button onClick={() => setMenuOpen(false)} style={{ position: "absolute", top: "1.5rem", right: "1.5rem", background: "none", border: "none", color: "rgba(255,255,255,0.7)", fontSize: "1.8rem", cursor: "pointer", lineHeight: 1 }}>✕</button>
+          <button id="btn-mobile-menu-close" onClick={() => setMenuOpen(false)} style={{ position: "absolute", top: "1.5rem", right: "1.5rem", background: "none", border: "none", color: "rgba(255,255,255,0.7)", fontSize: "1.8rem", cursor: "pointer", lineHeight: 1 }}>✕</button>
           {["about", "practice", "attorneys", "testimonials", "contact"].map(s => (
             <a key={s} href={`#${s}`} onClick={e => { e.preventDefault(); scrollTo(s); }} style={{ color: "white", textDecoration: "none", fontFamily: "'Cormorant Garamond', serif", fontSize: "2.5rem", fontWeight: 300 }}>
               {s.charAt(0).toUpperCase() + s.slice(1)}
             </a>
           ))}
-          <button className="btn-primary" onClick={() => scrollTo("contact")}>Free Consultation</button>
+          <button className="btn-primary" id="btn-mobile-consultation" onClick={() => scrollTo("contact")}>Free Consultation</button>
         </div>
       )}
 
-      {/* HERO */}
-      <section className="hero" id="hero">
-        <div className="hero-bg" />
-        <div className="hero-lines" />
-        <div className="hero-accent" />
-        <div className="hero-content">
-          <div className="hero-eyebrow">
-            <span>Excellence in Law Since 1999</span>
+      <main>
+        {/* HERO */}
+        <section className="hero" id="hero">
+          <div className="hero-bg" />
+          <div className="hero-lines" />
+          <div className="hero-accent" />
+          <div className="hero-content">
+            <div className="hero-eyebrow">
+              <span>Excellence in Law Since 1999</span>
+            </div>
+            <h1>Justice is not a<br /><em>privilege.</em><br />It's your right.</h1>
+            <p>Owen Mason Law Firm provides sophisticated legal counsel to individuals, families, and businesses — combining deep expertise with an unwavering commitment to client outcomes.</p>
+            <div className="hero-btns">
+              <button className="btn-primary" id="btn-hero-schedule" onClick={() => scrollTo("contact")}>Schedule Consultation</button>
+              <button className="btn-outline" id="btn-hero-practice" onClick={() => scrollTo("contact")}>Our Practice Areas</button>
+            </div>
           </div>
-          <h1>Justice is not a<br /><em>privilege.</em><br />It's your right.</h1>
-          <p>Owen Mason Law Firm provides sophisticated legal counsel to individuals, families, and businesses — combining deep expertise with an unwavering commitment to client outcomes.</p>
-          <div className="hero-btns">
-            <button className="btn-primary" onClick={() => scrollTo("contact")}>Schedule Consultation</button>
-            <button className="btn-outline" onClick={() => scrollTo("practice")}>Our Practice Areas</button>
+          <div className="hero-stats">
+            <div className="stat"><span className="stat-num">25+</span><span className="stat-label">Years of Practice</span></div>
+            <div className="stat"><span className="stat-num">1,200+</span><span className="stat-label">Cases Won</span></div>
+            <div className="stat"><span className="stat-num">98%</span><span className="stat-label">Client Satisfaction</span></div>
+            <div className="stat"><span className="stat-num">6</span><span className="stat-label">Practice Areas</span></div>
           </div>
-        </div>
-        <div className="hero-stats">
-          <div className="stat"><span className="stat-num">25+</span><span className="stat-label">Years of Practice</span></div>
-          <div className="stat"><span className="stat-num">1,200+</span><span className="stat-label">Cases Won</span></div>
-          <div className="stat"><span className="stat-num">98%</span><span className="stat-label">Client Satisfaction</span></div>
-          <div className="stat"><span className="stat-num">6</span><span className="stat-label">Practice Areas</span></div>
-        </div>
-      </section>
+        </section>
 
-      {/* ABOUT */}
-      <section className="about" id="about">
-        <div className="about-inner">
-          <div className="about-visual reveal">
-            <div className="about-img-frame">
-              <div className="about-img-inner">
-                <span className="about-initials">OM</span>
+        {/* ABOUT */}
+        <section className="about" id="about">
+          <div className="about-inner">
+            <div className="about-visual reveal">
+              <div className="about-img-frame" role="img" aria-label="Owen Mason Law Firm office showing sophisticated professional atmosphere">
+                <div className="about-img-inner">
+                  <span className="about-initials">OM</span>
+                </div>
+              </div>
+              <div className="about-badge">
+                <strong>25+</strong>
+                <span>Years of Experience</span>
               </div>
             </div>
-            <div className="about-badge">
-              <strong>25+</strong>
-              <span>Years of Experience</span>
+            <div className="about-text">
+              <div className="section-eyebrow reveal"><span>About the Firm</span></div>
+              <h2 className="section-title reveal" style={{ marginBottom: "1.5rem" }}>A Legacy of Legal Excellence</h2>
+              <p className="reveal reveal-delay-1">Founded in 1999, Owen Mason Law Firm has grown into one of the region's most respected legal practices. We combine the responsiveness of a boutique firm with the resources and depth of a large institution.</p>
+              <p className="reveal reveal-delay-2">Our attorneys are not just legal technicians — they are trusted advisors who understand the full context of your challenges. We take pride in delivering clear, practical advice and achieving results that matter.</p>
+              <div className="about-values">
+                {[
+                  { icon: "🔒", title: "Integrity", desc: "Uncompromising ethical standards" },
+                  { icon: "🎯", title: "Precision", desc: "Meticulous attention to every detail" },
+                  { icon: "🤝", title: "Dedication", desc: "Committed to your success" },
+                  { icon: "🌐", title: "Reach", desc: "Local expertise, global perspective" },
+                ].map((v, i) => (
+                  <div className={`value-item reveal reveal-delay-${i + 1}`} key={v.title}>
+                    <div className="value-icon">{v.icon}</div>
+                    <div><h4>{v.title}</h4><p>{v.desc}</p></div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-          <div className="about-text">
-            <div className="section-eyebrow reveal"><span>About the Firm</span></div>
-            <h2 className="section-title reveal" style={{ marginBottom: "1.5rem" }}>A Legacy of Legal Excellence</h2>
-            <p className="reveal reveal-delay-1">Founded in 1999, Owen Mason Law Firm has grown into one of the region's most respected legal practices. We combine the responsiveness of a boutique firm with the resources and depth of a large institution.</p>
-            <p className="reveal reveal-delay-2">Our attorneys are not just legal technicians — they are trusted advisors who understand the full context of your challenges. We take pride in delivering clear, practical advice and achieving results that matter.</p>
-            <div className="about-values">
-              {[
-                { icon: "🔒", title: "Integrity", desc: "Uncompromising ethical standards" },
-                { icon: "🎯", title: "Precision", desc: "Meticulous attention to every detail" },
-                { icon: "🤝", title: "Dedication", desc: "Committed to your success" },
-                { icon: "🌐", title: "Reach", desc: "Local expertise, global perspective" },
-              ].map((v, i) => (
-                <div className={`value-item reveal reveal-delay-${i + 1}`} key={v.title}>
-                  <div className="value-icon">{v.icon}</div>
-                  <div><h4>{v.title}</h4><p>{v.desc}</p></div>
+        </section>
+
+        {/* PRACTICE AREAS */}
+        <section className="practice" id="practice">
+          <div className="practice-header reveal">
+            <div>
+              <div className="section-eyebrow"><span>What We Do</span></div>
+              <h2 className="section-title light">Our Practice Areas</h2>
+            </div>
+            <button className="btn-outline" id="btn-practice-discuss" onClick={() => scrollTo("contact")}>Discuss Your Case →</button>
+          </div>
+          <div className="practice-grid">
+            {practiceAreas.map((p, i) => (
+              <div className="practice-card reveal reveal-delay-1" key={p.title}>
+                <div className="practice-num">0{i + 1}</div>
+                <span className="practice-icon">{p.icon}</span>
+                <h3>{p.title}</h3>
+                <p>{p.desc}</p>
+                <span className="practice-arrow">→</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ATTORNEYS */}
+        <section className="attorneys" id="attorneys">
+          <div className="attorneys-inner">
+            <div className="attorneys-header reveal">
+              <div className="section-eyebrow"><span>Our Team</span></div>
+              <h2 className="section-title">Meet Our Attorneys</h2>
+            </div>
+            <div className="attorneys-grid">
+              {attorneys.map((a, i) => (
+                <div className={`attorney-card reveal reveal-delay-${i + 1}`} key={a.name}>
+                  <div className="attorney-photo" role="img" aria-label={`Portrait of ${a.name}, ${a.title}`} style={{ background: `url(${a.image}) center/cover no-repeat` }}>
+                    <div className="attorney-overlay" />
+                  </div>
+                  <div className="attorney-info">
+                    <h3>{a.name}</h3>
+                    <span className="attorney-title">{a.title}</span>
+                    <p>{a.desc}</p>
+                    <div className="attorney-specialties">
+                      {a.specialties.map(s => <span className="tag" key={s}>{s}</span>)}
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* PRACTICE AREAS */}
-      <section className="practice" id="practice">
-        <div className="practice-header reveal">
-          <div>
-            <div className="section-eyebrow"><span>What We Do</span></div>
-            <h2 className="section-title light">Our Practice Areas</h2>
-          </div>
-          <button className="btn-outline" onClick={() => scrollTo("contact")}>Discuss Your Case →</button>
-        </div>
-        <div className="practice-grid">
-          {practiceAreas.map((p, i) => (
-            <div className="practice-card reveal reveal-delay-1" key={p.title}>
-              <div className="practice-num">0{i + 1}</div>
-              <span className="practice-icon">{p.icon}</span>
-              <h3>{p.title}</h3>
-              <p>{p.desc}</p>
-              <span className="practice-arrow">→</span>
+        {/* TESTIMONIALS */}
+        <section className="testimonials" id="testimonials">
+          <div className="testimonials-inner">
+            <div className="testimonials-header reveal">
+              <div className="section-eyebrow"><span>Client Voices</span></div>
+              <h2 className="section-title light">What Our Clients Say</h2>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ATTORNEYS */}
-      <section className="attorneys" id="attorneys">
-        <div className="attorneys-inner">
-          <div className="attorneys-header reveal">
-            <div className="section-eyebrow"><span>Our Team</span></div>
-            <h2 className="section-title">Meet Our Attorneys</h2>
-          </div>
-          <div className="attorneys-grid">
-            {attorneys.map((a, i) => (
-              <div className={`attorney-card reveal reveal-delay-${i + 1}`} key={a.name}>
-                <div className="attorney-photo" style={{ background: `url(${a.image}) center/cover no-repeat` }}>
-                  <div className="attorney-overlay" />
-                </div>
-                <div className="attorney-info">
-                  <h3>{a.name}</h3>
-                  <span className="attorney-title">{a.title}</span>
-                  <p>{a.desc}</p>
-                  <div className="attorney-specialties">
-                    {a.specialties.map(s => <span className="tag" key={s}>{s}</span>)}
+            <div className="testimonials-grid">
+              {testimonials.map((t, i) => (
+                <div className={`testimonial-card reveal reveal-delay-${i + 1}`} key={t.name}>
+                  <span className="stars">★★★★★</span>
+                  <span className="quote-mark">"</span>
+                  <p>{t.text}</p>
+                  <div className="testimonial-author">
+                    <div className="author-avatar">{t.initials}</div>
+                    <div>
+                      <span className="author-name">{t.name}</span>
+                      <span className="author-case">{t.caseType}</span>
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* TESTIMONIALS */}
-      <section className="testimonials" id="testimonials">
-        <div className="testimonials-inner">
-          <div className="testimonials-header reveal">
-            <div className="section-eyebrow"><span>Client Voices</span></div>
-            <h2 className="section-title light">What Our Clients Say</h2>
-          </div>
-          <div className="testimonials-grid">
-            {testimonials.map((t, i) => (
-              <div className={`testimonial-card reveal reveal-delay-${i + 1}`} key={t.name}>
-                <span className="stars">★★★★★</span>
-                <span className="quote-mark">"</span>
-                <p>{t.text}</p>
-                <div className="testimonial-author">
-                  <div className="author-avatar">{t.initials}</div>
-                  <div>
-                    <span className="author-name">{t.name}</span>
-                    <span className="author-case">{t.caseType}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CONTACT */}
-      <section className="contact" id="contact">
-        <div className="contact-inner">
-          <div className="contact-info reveal">
-            <div className="section-eyebrow"><span>Get in Touch</span></div>
-            <h2 className="section-title" style={{ marginBottom: "1.5rem" }}>Schedule Your Free Consultation</h2>
-            <p>Your first consultation is complimentary. Tell us about your legal matter and one of our experienced attorneys will respond within 24 hours.</p>
-            <div className="contact-details">
-              {[
-                { icon: "📍", label: "Office Address", val: "14 Independence Avenue, Ridge, Accra, Ghana" },
-                { icon: "📞", label: "Phone", val: "+233 30 276 0000" },
-                { icon: "📧", label: "Email", val: "info@owenmasonlaw.com" },
-                { icon: "🕐", label: "Office Hours", val: "Monday – Friday: 8am – 6pm" },
-              ].map((c, i) => (
-                <div className={`contact-item reveal reveal-delay-${i + 1}`} key={c.label}>
-                  <div className="contact-ico">{c.icon}</div>
-                  <div><h4>{c.label}</h4><p>{c.val}</p></div>
                 </div>
               ))}
             </div>
           </div>
-          <div className="contact-form reveal">
-            <h3>Send Us a Message</h3>
-            <form onSubmit={handleSubmit}>
-              <div className="form-row">
-                <div className="form-group reveal reveal-delay-1">
-                  <label>Full Name</label>
-                  <input type="text" placeholder="John Doe" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required />
-                </div>
-                <div className="form-group reveal reveal-delay-1">
-                  <label>Email Address</label>
-                  <input type="email" placeholder="john@example.com" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required />
-                </div>
+        </section>
+
+        {/* CONTACT */}
+        <section className="contact" id="contact">
+          <div className="contact-inner">
+            <div className="contact-info reveal">
+              <div className="section-eyebrow"><span>Get in Touch</span></div>
+              <h2 className="section-title" style={{ marginBottom: "1.5rem" }}>Schedule Your Free Consultation</h2>
+              <p>Your first consultation is complimentary. Tell us about your legal matter and one of our experienced attorneys will respond within 24 hours.</p>
+              <div className="contact-details">
+                {[
+                  { icon: "📞", label: "Phone", val: "+233 30 276 0000" },
+                  { icon: "📧", label: "Email", val: "info@owenmasonlaw.com" },
+                  { icon: "🕐", label: "Office Hours", val: "Monday – Friday: 8am – 6pm" },
+                ].map((c, i) => (
+                  <div className={`contact-item reveal reveal-delay-${i + 1}`} key={c.label}>
+                    <div className="contact-ico">{c.icon}</div>
+                    <div><h4>{c.label}</h4><p>{c.val}</p></div>
+                  </div>
+                ))}
               </div>
-              <div className="form-row">
-                <div className="form-group reveal reveal-delay-2">
-                  <label>Phone Number</label>
-                  <input type="tel" placeholder="+233 XX XXX XXXX" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} />
+            </div>
+            <div className="contact-form reveal">
+              <h3>Send Us a Message</h3>
+              <form onSubmit={handleSubmit}>
+                <div className="form-row">
+                  <div className="form-group reveal reveal-delay-1">
+                    <label htmlFor="input-name">Full Name</label>
+                    <input id="input-name" type="text" placeholder="John Doe" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required />
+                  </div>
+                  <div className="form-group reveal reveal-delay-1">
+                    <label htmlFor="input-email">Email Address</label>
+                    <input id="input-email" type="email" placeholder="john@example.com" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required />
+                  </div>
                 </div>
-                <div className="form-group reveal reveal-delay-2">
-                  <label>Practice Area</label>
-                  <select value={form.area} onChange={e => setForm({ ...form, area: e.target.value })} required>
-                    <option value="">Select area...</option>
-                    {practiceAreas.map(p => <option key={p.title}>{p.title}</option>)}
-                    <option>Other</option>
-                  </select>
+                <div className="form-row">
+                  <div className="form-group reveal reveal-delay-2">
+                    <label htmlFor="input-phone">Phone Number</label>
+                    <input id="input-phone" type="tel" placeholder="+233 XX XXX XXXX" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} />
+                  </div>
+                  <div className="form-group reveal reveal-delay-2">
+                    <label htmlFor="select-area">Practice Area</label>
+                    <select id="select-area" value={form.area} onChange={e => setForm({ ...form, area: e.target.value })} required>
+                      <option value="">Select area...</option>
+                      {practiceAreas.map(p => <option key={p.title}>{p.title}</option>)}
+                      <option>Other</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div className="form-group reveal reveal-delay-3">
-                <label>Brief Description of Your Matter</label>
-                <textarea rows={5} placeholder="Please describe your legal matter briefly..." value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} required />
-              </div>
-              <button type="submit" className="form-submit reveal reveal-delay-3">Request Free Consultation →</button>
-            </form>
+                <div className="form-group reveal reveal-delay-3">
+                  <label htmlFor="input-message">Brief Description of Your Matter</label>
+                  <textarea id="input-message" rows={5} placeholder="Please describe your legal matter briefly..." value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} required />
+                </div>
+                <button type="submit" id="btn-submit-consultation" className="form-submit reveal reveal-delay-3">Request Free Consultation →</button>
+              </form>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
       {/* FLOATING CTA */}
-      <button className="floating-cta" onClick={() => scrollTo("contact")}>
+      <button className="floating-cta" id="btn-floating-cta" onClick={() => scrollTo("contact")}>
         <span className="floating-cta-dot" />
         Book Free Consultation
       </button>
 
       {/* BACK TO TOP */}
-      <button className={`back-to-top ${backToTop ? "visible" : ""}`} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Back to top">↑</button>
+      <button className={`back-to-top ${backToTop ? "visible" : ""}`} id="btn-back-to-top" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Back to top">↑</button>
 
       {/* FOOTER */}
-<footer>
-  <div className="footer-inner">
-    <div className="footer-brand">
-      <div className="nav-logo" style={{ cursor: "default" }}>
-        Owen Mason<span>Law Firm</span>
-      </div>
-      <p>
-        Delivering exceptional legal services with integrity, precision, and a
-        relentless commitment to our clients' best interests since 1999.
-      </p>
+      <footer>
+        <div className="footer-inner">
+          <div className="footer-brand">
+            <div className="nav-logo" style={{ cursor: "default" }}>
+              Owen Mason<span>Law Firm</span>
+            </div>
+            <p>
+              Delivering exceptional legal services with integrity, precision, and a
+              relentless commitment to our clients' best interests since 1999.
+            </p>
 
-      <div className="footer-social">
-        {["in", "f", "𝕏"].map((s) => (
-          <button
-            key={s}
-            className="social-btn"
-            onClick={() => console.log(`${s} clicked`)}
-          >
-            {s}
-          </button>
-        ))}
-      </div>
-    </div>
+            <div className="footer-social">
+              {["in", "f", "𝕏"].map((s) => (
+                <button
+                  key={s}
+                  id={`btn-social-${s.toLowerCase()}`}
+                  className="social-btn"
+                  aria-label={`Visit our ${s} page`}
+                  onClick={() => console.log(`${s} clicked`)}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          </div>
 
-    <div className="footer-col">
-      <h4>Practice Areas</h4>
-      <ul>
-        {practiceAreas.map((p) => (
-          <li key={p.title}>
-            <button
-              className="footer-link"
-              onClick={() => scrollTo("practice")}
-            >
-              {p.title}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
+          <div className="footer-col">
+            <h4>Practice Areas</h4>
+            <ul>
+              {practiceAreas.map((p) => (
+                <li key={p.title}>
+                  <button
+                    id={`btn-footer-practice-${p.title.replace(/\s+/g, '-').toLowerCase()}`}
+                    className="footer-link"
+                    onClick={() => scrollTo("practice")}
+                  >
+                    {p.title}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-    <div className="footer-col">
-      <h4>The Firm</h4>
-      <ul>
-        {["About Us", "Our Attorneys", "Testimonials", "News & Insights", "Careers"].map(
-          (l) => (
-            <li key={l}>
-              <button className="footer-link">{l}</button>
-            </li>
-          )
-        )}
-      </ul>
-    </div>
+          <div className="footer-col">
+            <h4>The Firm</h4>
+            <ul>
+              {["About Us", "Our Attorneys", "Testimonials", "News & Insights", "Careers"].map(
+                (l) => (
+                  <li key={l}>
+                    <button id={`btn-footer-firm-${l.replace(/[\s&]+/g, '-').toLowerCase()}`} className="footer-link">{l}</button>
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
 
-    <div className="footer-col">
-      <h4>Client Resources</h4>
-      <ul>
-        {[
-          "Free Consultation",
-          "Client Portal",
-          "Legal Resources",
-          "Privacy Policy",
-          "Terms of Service",
-        ].map((l) => (
-          <li key={l}>
-            <button className="footer-link">{l}</button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </div>
+          <div className="footer-col">
+            <h4>Client Resources</h4>
+            <ul>
+              {[
+                "Free Consultation",
+                "Client Portal",
+                "Legal Resources",
+                "Privacy Policy",
+                "Terms of Service",
+              ].map((l) => (
+                <li key={l}>
+                  <button id={`btn-footer-resource-${l.replace(/\s+/g, '-').toLowerCase()}`} className="footer-link">{l}</button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
 
-  <div className="footer-bottom">
-    <p>
-      © {new Date().getFullYear()} Owen Mason Law Firm. All rights reserved.
-    </p>
-    <p className="footer-disclaimer">
-      The information on this website is for general informational purposes only
-      and does not constitute legal advice. No attorney-client relationship is
-      formed by use of this site.
-    </p>
-  </div>
-</footer>
+        <div className="footer-bottom">
+          <p>
+            © {new Date().getFullYear()} Owen Mason Law Firm. All rights reserved.
+          </p>
+          <p className="footer-disclaimer">
+            The information on this website is for general informational purposes only
+            and does not constitute legal advice. No attorney-client relationship is
+            formed by use of this site.
+          </p>
+        </div>
+      </footer>
 
       {/* TOAST */}
       <div className={`toast ${toast ? "show" : ""}`}>
