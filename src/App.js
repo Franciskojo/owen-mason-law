@@ -869,7 +869,7 @@ export default function App() {
               <div className="contact-details">
                 {[
                   { icon: "📞", label: "Phone", val: "+233 30 276 0000" },
-                  { icon: "📧", label: "Email", val: "info@owenmasonlaw.com" },
+                  { icon: "📧", label: "Email", val: "owenmasonlaw@gmail.com" },
                   { icon: "🕐", label: "Office Hours", val: "Monday – Friday: 8am – 6pm" },
                 ].map((c, i) => (
                   <div className={`contact-item reveal reveal-delay-${i + 1}`} key={c.label}>
