@@ -639,7 +639,7 @@ const practiceAreas = [
 const attorneys = [
   { name: "Owen Mason", title: "Founding Partner", image: "/images/owen.png", initials: "OM", desc: "With over 25 years of distinguished practice, Owen Mason brings unparalleled expertise in corporate and commercial law.", specialties: ["Corporate", "M&A", "Litigation"] },
   { name: "Victoria Clarke", title: "Senior Partner", image: "/images/victoria.png", initials: "VC", desc: "Victoria is a seasoned litigator recognized for her strategic acumen and commanding presence in the courtroom.", specialties: ["Litigation", "Employment"] },
-  { name: "James Adewale", title: "Partner", image: "/images/james.png", initials: "JA", desc: "James brings specialized expertise in real estate and infrastructure transactions across West Africa and beyond.", specialties: ["Real Estate", "Finance"] },
+  { name: "James Sterling", title: "Partner", image: "/images/james.png", initials: "JS", desc: "James brings specialized expertise in real estate and infrastructure transactions across North America and Europe.", specialties: ["Real Estate", "Finance"] },
 ];
 
 const testimonials = [
@@ -868,7 +868,7 @@ export default function App() {
               <p>Your first consultation is complimentary. Tell us about your legal matter and one of our experienced attorneys will respond within 24 hours.</p>
               <div className="contact-details">
                 {[
-                  { icon: "📞", label: "Phone", val: "+233 30 276 0000" },
+                  // { icon: "📞", label: "Phone", val: "+233 30 276 0000" },
                   { icon: "📧", label: "Email", val: "info@owenmasonlawfirm.com" },
                   { icon: "🕐", label: "Office Hours", val: "Monday – Friday: 8am – 6pm" },
                 ].map((c, i) => (
